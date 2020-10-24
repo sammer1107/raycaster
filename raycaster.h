@@ -23,6 +23,8 @@
 #define INVERT(x) (uint8_t)((x ^ 255) + 1)
 #define ABS(x) (x < 0 ? -x : x)
 
+#define DELTA 0.0001
+
 class RayCaster
 {
 public:
