@@ -112,7 +112,7 @@ void RayCasterFloat::Trace(uint16_t screenX,
     float hitOffset;
     int hitDirection;
     float deltaAngle = atanf(((int16_t) screenX - SCREEN_WIDTH / 2.0f) /
-                             (SCREEN_WIDTH / 2.0f) * M_PI / 4);
+                             (SCREEN_WIDTH / 2.0f) * tan(FOV / 2));
     float lineDistance = Distance(_playerX, _playerY, _playerA + deltaAngle,
                                   &hitOffset, &hitDirection);
     float distance = lineDistance * cos(deltaAngle);
@@ -122,13 +122,15 @@ void RayCasterFloat::Trace(uint16_t screenX,
     *textureY = 0;
     *textureStep = 0;
     if (distance > 0) {
-        *screenY = INV_FACTOR / distance;
-        auto txs = (*screenY * 2.0f);
+        float txs = 2 * INV_FACTOR / distance;
         if (txs != 0) {
             *textureStep = (256 / txs) * 256;
             if (txs > SCREEN_HEIGHT) {
                 auto wallHeight = (txs - SCREEN_HEIGHT) / 2;
                 *textureY = wallHeight * (256 / txs) * 256;
+                *screenY = SCREEN_HEIGHT >> 1;
+            } else {
+                *screenY = txs / 2;
             }
         }
     } else {

@@ -9,7 +9,7 @@
 #define SCREEN_HEIGHT (uint16_t) 256
 #define SCREEN_SCALE 2
 #define FOV (double) (M_PI / 2)
-#define INV_FACTOR (float) (SCREEN_WIDTH * 95.0f / 320.0f)
+#define INV_FACTOR (float) (SCREEN_WIDTH / (4.0f * tanf(FOV / 2)))
 #define LOOKUP_TBL
 #define LOOKUP8(tbl, offset) tbl[offset]
 #define LOOKUP16(tbl, offset) tbl[offset]
