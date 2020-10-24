@@ -12,11 +12,11 @@ bool RayCasterFloat::IsWall(float rayX, float rayY, float rayA)
     int tileX = static_cast<int>(mapX);
     int tileY = static_cast<int>(mapY);
 
-    if (tileX < 0 || tileY < 0 || tileX >= MAP_X - 1 || tileY >= MAP_Y - 1) {
+    if (tileX < 0 || tileY < 0 || tileX > MAP_X - 1 || tileY > MAP_Y - 1) {
         return true;
     }
     return g_map[(tileX >> 3) + (tileY << (MAP_XS - 3))] &
-           (1 << (8 - (tileX & 0x7)));
+           (1 << (7 - (tileX & 0x7)));
 }
 
 float RayCasterFloat::Distance(float playerX,
@@ -169,6 +169,10 @@ void RayCasterFloat::Start(uint16_t playerX, uint16_t playerY, int16_t playerA)
     _playerA = (playerA / 1024.0f) * 2.0f * M_PI;
 }
 
-RayCasterFloat::RayCasterFloat() : RayCaster() {}
+RayCasterFloat::RayCasterFloat() : RayCaster()
+{
+}
 
-RayCasterFloat::~RayCasterFloat() {}
+RayCasterFloat::~RayCasterFloat()
+{
+}

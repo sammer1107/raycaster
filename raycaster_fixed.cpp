@@ -64,7 +64,7 @@ inline bool RayCasterFixed::IsWall(uint8_t tileX, uint8_t tileY)
         return true;
     }
     return LOOKUP8(g_map, (tileX >> 3) + (tileY << (MAP_XS - 3))) &
-           (1 << (8 - (tileX & 0x7)));
+           (1 << (7 - (tileX & 0x7)));
 }
 
 void RayCasterFixed::LookupHeight(uint16_t distance,
@@ -302,6 +302,10 @@ void RayCasterFixed::Start(uint16_t playerX, uint16_t playerY, int16_t playerA)
     _playerA = playerA;
 }
 
-RayCasterFixed::RayCasterFixed() : RayCaster() {}
+RayCasterFixed::RayCasterFixed() : RayCaster()
+{
+}
 
-RayCasterFixed::~RayCasterFixed() {}
+RayCasterFixed::~RayCasterFixed()
+{
+}
