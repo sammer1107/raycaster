@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#define PLAYER_SIZE 0.2f
+
 class Game
 {
 public:

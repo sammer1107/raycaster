@@ -17,15 +17,15 @@ void Game::Move(int m, int r, float seconds)
         playerA -= 2.0f * M_PI;
     }
 
-    if (playerX < 1) {
-        playerX = 1.01f;
-    } else if (playerX > MAP_X - 2) {
-        playerX = MAP_X - 2 - 0.01f;
+    if (playerX < PLAYER_SIZE) {
+        playerX = PLAYER_SIZE;
+    } else if (playerX > MAP_X - PLAYER_SIZE) {
+        playerX = MAP_X - PLAYER_SIZE;
     }
-    if (playerY < 1) {
-        playerY = 1.01f;
-    } else if (playerY > MAP_Y - 2) {
-        playerY = MAP_Y - 2 - 0.01f;
+    if (playerY < PLAYER_SIZE) {
+        playerY = PLAYER_SIZE;
+    } else if (playerY > MAP_Y - PLAYER_SIZE) {
+        playerY = MAP_Y - PLAYER_SIZE;
     }
 }
 
@@ -36,4 +36,6 @@ Game::Game()
     playerA = 5.25f;
 }
 
-Game::~Game() {}
+Game::~Game()
+{
+}
