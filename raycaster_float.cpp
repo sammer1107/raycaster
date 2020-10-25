@@ -67,8 +67,10 @@ float RayCasterFloat::Distance(float playerX,
     bool horizontalHit = false;
 
     do {
-        while (((tileStepY == 1 && (interceptY <= tileY + 1 + DELTA)) ||
-                (tileStepY == -1 && (interceptY >= tileY - DELTA)))) {
+        bool somethingDone = false;
+        while (((tileStepY == 1 && (interceptY <= tileY + 1)) ||
+                (tileStepY == -1 && (interceptY >= tileY)))) {
+            somethingDone = true;
             tileX += tileStepX;
             if (IsWall(tileX, interceptY, rayA)) {
                 verticalHit = true;
@@ -80,9 +82,9 @@ float RayCasterFloat::Distance(float playerX,
             }
             interceptY += stepY;
         }
-        while (!verticalHit &&
-               ((tileStepX == 1 && (interceptX <= tileX + 1 + DELTA)) ||
-                (tileStepX == -1 && (interceptX >= tileX - DELTA)))) {
+        while (!verticalHit && ((tileStepX == 1 && (interceptX <= tileX + 1)) ||
+                                (tileStepX == -1 && (interceptX >= tileX)))) {
+            somethingDone = true;
             tileY += tileStepY;
             if (IsWall(interceptX, tileY, rayA)) {
                 horizontalHit = true;
@@ -93,6 +95,10 @@ float RayCasterFloat::Distance(float playerX,
                 break;
             }
             interceptX += stepX;
+        }
+        if (!somethingDone) {
+            interceptX += -tileStepX * DELTA;
+            interceptY += -tileStepY * DELTA;
         }
     } while ((!horizontalHit && !verticalHit));
 
